@@ -16,7 +16,5 @@ RUN		apk update; apk add nginx; mkdir /var/www/html
 COPY	conf/default.conf /etc/nginx/http.d/default.conf
 COPY	--from=gen_cert /etc/ssl/private/ /etc/ssl/private/
 
-RUN		touch /var/www/html/index.html
-
 CMD ["-g", "daemon off;"]
 ENTRYPOINT ["nginx"]
