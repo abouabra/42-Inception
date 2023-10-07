@@ -16,6 +16,13 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp theme activate twentytwentytwo  --allow-root
     wp user create "$WORDPRESS_NORMAL_USER" "$WORDPRESS_NORMAL_EMAIL" --user_pass="$WORDPRESS_NORMAL_PASS" --role=editor --allow-root
     wp option set comment_previously_approved 0 --allow-root
+
+    wp plugin install redis-cache --activate --allow-root
+    wp config set WP_REDIS_CLIENT redis --allow-root
+    wp config set WP_REDIS_HOST redis --allow-root
+    wp config set WP_REDIS_PORT 6379 --allow-root
+    wp config set WP_REDIS_DATABASE 0 --allow-root
+    wp redis enable --allow-root
 else
     echo "Wordpress is already installed"
 fi

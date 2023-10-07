@@ -7,6 +7,7 @@ services:
     build: ./requirements/nginx/
     depends_on:
       - wordpress
+      - redis
     ports:
       - 443:443
     volumes:
@@ -37,6 +38,18 @@ services:
     build: ./requirements/mariadb/
     volumes:
       - mariadb_v:/var/www/html
+    networks:
+      - inception_net
+    env_file:
+      - .env
+    restart: always
+
+  redis:
+    image: inception:redis
+    container_name: redis
+    build: ./requirements/bonus/redis/
+    volumes:
+      - wordpress_v:/var/www/html
     networks:
       - inception_net
     env_file:

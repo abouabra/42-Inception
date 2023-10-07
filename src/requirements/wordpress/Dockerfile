@@ -5,7 +5,7 @@ LABEL description="A content management system that will be used to create and m
 LABEL version="0.1.0"
 LABEL url="https://github.com/abouabra/inception"
 
-RUN		apk update; apk add curl php-phar php-curl php-fpm php-mysqli php-iconv mariadb-client; rm -rf /var/cache/apk/*
+RUN		apk update; apk add curl php-phar php-curl php-fpm php-mysqli php-iconv php-tokenizer mariadb-client; rm -rf /var/cache/apk/*
         
 COPY	./conf/install_wordpress.sh /usr/local/bin/install_wordpress
 RUN		chmod +x /usr/local/bin/install_wordpress
