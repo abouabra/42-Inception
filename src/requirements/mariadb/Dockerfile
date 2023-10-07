@@ -5,7 +5,7 @@ LABEL description="Mariadb"
 LABEL version="0.1.0"
 LABEL url="https://github.com/abouabra/inception"
 
-RUN		apk update; apk add mariadb mariadb-client; rm -rf /var/cache/apk/*
+RUN		apk update; apk add mariadb; rm -rf /var/cache/apk/*
 COPY	./conf/install_mariadb.sh /usr/local/bin/install_mariadb
 RUN		chmod +x /usr/local/bin/install_mariadb
 
