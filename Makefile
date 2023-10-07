@@ -2,6 +2,8 @@
 all: start
 
 start:
+	@rm -rf /home/ayman/Documents/42/data
+	@mkdir -p /home/ayman/Documents/42/data/wordpress /home/ayman/Documents/42/data/mariadb
 	@sudo docker compose -f src/docker-compose.yml up -d
 
 stop:
