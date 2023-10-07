@@ -10,9 +10,11 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress_volume:/var/www/html
+      - wordpress_v:/var/www/html
     networks:
       - inception_net
+    env_file:
+      - .env
     restart: always
 
   wordpress:
@@ -22,33 +24,40 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wordpress_volume:/var/www/html
+      - wordpress_v:/var/www/html
     networks:
       - inception_net
+    env_file:
+      - .env
     restart: always
+
   mariadb:
     image: inception:mariadb
     container_name: mariadb
     build: ./requirements/mariadb/
     volumes:
-      - mariadb_volume:/var/lib/mysql
+      - mariadb_v:/var/www/html
     networks:
       - inception_net
+    env_file:
+      - .env
     restart: always
 
 volumes:
-    wordpress_volume:
-        driver: local
-        driver_opts:
-            type: none
-            device: /home/abouabra/data/wordpress/
-            o: bind
-    mariadb_volume:
-      driver: local
-      driver_opts:
-          type: none
-          device: /home/abouabra/data/mariadb/
-          o: bind
+  mariadb_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/abouabra/data/mariadb
+      o: bind
+
+  wordpress_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/abouabra/data/wordpress
+      o: bind
+
 
 networks:
   inception_net:

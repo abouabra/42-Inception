@@ -8,15 +8,12 @@ start:
 stop:
 	@sudo docker compose -f src/docker-compose.yml stop
 
-clean: 
-	@sudo rm -rf /home/abouabra/data/
-
 fclean:
 	@sudo docker compose -f src/docker-compose.yml down -v 
-	@sudo docker system prune -af
+#@sudo docker system prune -af
 	@sudo rm -rf /home/abouabra/data/
 
-re: stop start
+re: fclean all
 
 RED = \033[1;31m
 GREEN = \033[1;32m
@@ -27,7 +24,7 @@ RESET = \033[0m
 
 ascci_art:
 	@clear
-	@printf "$(BLINK)$(RED)                                                                                               								      \n\
+	@printf "$(BLINK)$(GREEN)                                                                                               								      \n\
                                                                                                                                                           \n\
                                                                                                         \n\
         #####  #                                                                                        \n\
