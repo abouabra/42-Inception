@@ -26,11 +26,12 @@ services:
     networks:
       - inception_net
     restart: always
-
   mariadb:
     image: inception:mariadb
     container_name: mariadb
     build: ./requirements/mariadb/
+    volumes:
+      - mariadb_volume:/var/lib/mysql
     networks:
       - inception_net
     restart: always
@@ -40,8 +41,14 @@ volumes:
         driver: local
         driver_opts:
             type: none
-            device: /home/ayman/Documents/42/data/wordpress/
+            device: /home/abouabra/data/wordpress/
             o: bind
+    mariadb_volume:
+      driver: local
+      driver_opts:
+          type: none
+          device: /home/abouabra/data/mariadb/
+          o: bind
 
 networks:
   inception_net:
