@@ -5,7 +5,8 @@ LABEL description="Adminer"
 LABEL version="0.1.0"
 LABEL url="https://github.com/abouabra/inception"
 
-RUN		apk update; apk add curl php-fpm; rm -rf /var/cache/apk/*
+RUN		apk update; apk add wget php-fpm; rm -rf /var/cache/apk/*;\
+	    sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php81/php-fpm.d/www.conf;
 
 COPY	./conf/install_adminer.sh /usr/local/bin/install_adminer
 RUN		chmod +x /usr/local/bin/install_adminer
