@@ -7,9 +7,7 @@ LABEL url="https://github.com/abouabra/inception"
 
 RUN		apk update; apk add curl php-fpm; rm -rf /var/cache/apk/*
 
-WORKDIR /var/www/html
-RUN		mkdir -p adminer; \
-		curl -o adminer/index.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-en.php;\
-		sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php81/php-fpm.d/www.conf;
+COPY	./conf/install_adminer.sh /usr/local/bin/install_adminer
+RUN		chmod +x /usr/local/bin/install_adminer
 
-ENTRYPOINT	["php-fpm81", "-F"]
+ENTRYPOINT ["install_adminer"]
