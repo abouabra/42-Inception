@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent; do
+while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent > /dev/null; do
 	sleep 1;
 done
 
@@ -17,14 +17,16 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp user create "$WORDPRESS_NORMAL_USER" "$WORDPRESS_NORMAL_EMAIL" --user_pass="$WORDPRESS_NORMAL_PASS" --role=editor --allow-root
     wp option set comment_previously_approved 0 --allow-root
 
-    wp plugin install redis-cache --activate --allow-root
-    wp config set WP_REDIS_CLIENT redis --allow-root
     wp config set WP_REDIS_HOST redis --allow-root
     wp config set WP_REDIS_PORT 6379 --allow-root
     wp config set WP_REDIS_DATABASE 0 --allow-root
-    wp redis enable --allow-root
+    wp config set WP_CACHE true --allow-root
+    wp plugin install redis-cache --activate --allow-root
+    wp plugin update --all --allow-root
 else
     echo "Wordpress is already installed"
 fi
+
+wp redis enable --allow-root
 
 php-fpm81 -F

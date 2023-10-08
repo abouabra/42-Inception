@@ -8,6 +8,7 @@ services:
     depends_on:
       - wordpress
       - redis
+      - adminer
     ports:
       - 443:443
     volumes:
@@ -48,6 +49,18 @@ services:
     image: inception:redis
     container_name: redis
     build: ./requirements/bonus/redis/
+    volumes:
+      - wordpress_v:/var/www/html
+    networks:
+      - inception_net
+    env_file:
+      - .env
+    restart: always
+
+  adminer:
+    image: inception:adminer
+    container_name: adminer
+    build: ./requirements/bonus/adminer/
     volumes:
       - wordpress_v:/var/www/html
     networks:
