@@ -76,14 +76,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/abouabra/data/mariadb
+      device: /home/ayman/data/mariadb
       o: bind
 
   wordpress_v:
     driver: local
     driver_opts:
       type: none
-      device: /home/abouabra/data/wordpress
+      device: /home/ayman/data/wordpress
       o: bind
 
 

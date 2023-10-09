@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent > /dev/null; do
+while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent ; do
 	sleep 1;
 done
 

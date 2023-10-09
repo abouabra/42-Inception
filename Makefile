@@ -2,7 +2,7 @@
 all: ascci_art start
 
 start:
-	@mkdir -p /home/abouabra/data/wordpress /home/abouabra/data/mariadb
+	@mkdir -p /home/ayman/data/wordpress /home/ayman/data/mariadb
 	@sudo docker compose -f src/docker-compose.yml up -d --build
 
 stop:
@@ -11,7 +11,7 @@ stop:
 fclean:
 	@sudo docker compose -f src/docker-compose.yml down -v 
 #@sudo docker system prune -af
-	@sudo rm -rf /home/abouabra/data/
+	@sudo rm -rf /home/ayman/data/
 
 re: fclean all
 
