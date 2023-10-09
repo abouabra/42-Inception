@@ -9,7 +9,7 @@ services:
       - wordpress
       - redis
       - adminer
-      - static_website
+      - portfolio
     ports:
       - 443:443
     volumes:
@@ -82,6 +82,19 @@ services:
         - .env
       restart: always
 
+  netdata:
+    image: inception:netdata
+    container_name: netdata
+    build: ./requirements/bonus/netdata
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+    ports:
+      - 8080:19999
+    restart: always
 volumes:
   mariadb_v:
     driver: local
