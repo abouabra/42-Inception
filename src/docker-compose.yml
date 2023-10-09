@@ -95,6 +95,21 @@ services:
     ports:
       - 8080:19999
     restart: always
+
+  ftp:
+    image: inception:ftp
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    volumes:
+      - wordpress_v:/var/www/html
+    ports:
+      - 21:21
+    networks:
+      - inception_net
+    env_file:
+      - .env
+    restart: always
+
 volumes:
   mariadb_v:
     driver: local
