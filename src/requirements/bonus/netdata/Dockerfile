@@ -1,8 +1,8 @@
 FROM	alpine:3.18.4
 
 LABEL author="abouabra <abouabra@student.1337.ma>"
-LABEL description="netdata"
-LABEL version="0.1.0"
+LABEL description="A real-time monitoring tool for Linux systems"
+LABEL version="1.0.0"
 LABEL url="https://github.com/abouabra/inception"
 
 RUN		apk update; apk add wget; rm -rf /var/cache/apk/*;

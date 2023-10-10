@@ -16,17 +16,67 @@
             align-items: center;
             background-color: #000;
         }
-
+        #myButton {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: #008000;
+            color: #000;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 15px;
+            font-weight: 800;
+            transition: left 0.2s ease, top 0.2s ease;
+        }
+        
     </style>
     <title>Portfolio</title>
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Name: Ayman Bouabra</h1>
         <br>
-        <h1>Age: 19</h1>
+        <h1>Age: 20</h1>
         <br>
         <h1>School: 1337MED</h1>
     </div>
+    <button id="myButton">Tig Me</button>
+    <script>
+        const button = document.getElementById("myButton");
+      
+        function getRandomPosition() {
+          const maxX = window.innerWidth - button.clientWidth;
+          const maxY = window.innerHeight - button.clientHeight;
+          const randomX = Math.random() * maxX;
+          const randomY = Math.random() * maxY;
+          return { x: randomX, y: randomY };
+        }
+      
+        function moveButtonRandomly() {
+          const newPosition = getRandomPosition();
+          button.style.left = newPosition.x + "px";
+          button.style.top = newPosition.y + "px";
+        }
+      
+        document.addEventListener("mousemove", (event) => {
+          const mouseX = event.clientX;
+          const mouseY = event.clientY;
+          const buttonRect = button.getBoundingClientRect();
+          const buttonX = buttonRect.left + buttonRect.width / 2;
+          const buttonY = buttonRect.top + buttonRect.height / 2;
+      
+          const distance = Math.sqrt(
+            Math.pow(mouseX - buttonX, 2) + Math.pow(mouseY - buttonY, 2)
+          );
+            
+          if (distance < 60) {
+            moveButtonRandomly();
+          }
+        });
+      
+        moveButtonRandomly();
+      </script>
+
 </body>
 </html>

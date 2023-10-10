@@ -1,8 +1,8 @@
 FROM	alpine:3.18.4
 
 LABEL author="abouabra <abouabra@student.1337.ma>"
-LABEL description="Adminer"
-LABEL version="0.1.0"
+LABEL description=" A lightweight database management tool"
+LABEL version="1.0.0"
 LABEL url="https://github.com/abouabra/inception"
 
 RUN		apk update; apk add wget php-fpm php-session php-mysqli php-odbc php-pgsql php-sqlite3; rm -rf /var/cache/apk/*;\

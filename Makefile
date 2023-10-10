@@ -1,19 +1,22 @@
 
-all: ascci_art start
+all: build
 
-start:
+build: ascci_art
 	@mkdir -p /home/ayman/data/wordpress /home/ayman/data/mariadb
 	@sudo docker compose -f src/docker-compose.yml up -d --build
+
+start: ascci_art
+	@sudo docker compose -f src/docker-compose.yml up -d
 
 stop:
 	@sudo docker compose -f src/docker-compose.yml stop
 
 fclean:
-	@sudo docker compose -f src/docker-compose.yml down -v 
-#@sudo docker system prune -af
+	@sudo docker compose -f src/docker-compose.yml down -v
+	@sudo docker system prune -af
 	@sudo rm -rf /home/ayman/data/
 
-re: fclean all
+re: stop start
 
 RED = \033[1;31m
 GREEN = \033[1;32m

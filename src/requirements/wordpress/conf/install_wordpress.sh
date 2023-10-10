@@ -1,15 +1,15 @@
 #!/bin/sh
 
-while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent ; do
+while ! mariadb -hmariadb -u$MARIADB_USER_NAME -p$MARIADB_USER_PASSWORD $MARIADB_DATABASE_NAME --silent 2> /dev/null; do
 	sleep 1;
 done
 
-curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
-chmod +x /usr/local/bin/wp;
-sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php81/php-fpm.d/www.conf;
-mkdir -p /var/www/html;
-
 if [ ! -f /var/www/html/wp-config.php ]; then
+    sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/' /etc/php/8.2/fpm/pool.d/www.conf
+    mkdir -p /var/www/html;
+
+    curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
+    chmod +x /usr/local/bin/wp;
     wp core download --path=/var/www/html --locale=en_US --allow-root;
     wp config create --dbname=$MARIADB_DATABASE_NAME --dbuser=$MARIADB_USER_NAME --dbpass=$MARIADB_USER_PASSWORD --dbhost=mariadb --allow-root;
     wp core install --url="$WORDPRESS_URL" --title="$WORDPRESS_TITLE" --admin_user="$WORDPRESS_ADMIN_USER" --admin_password="$WORDPRESS_ADMIN_PASSWORD" --admin_email="$WORDPRESS_ADMIN_EMAIL" --allow-root;
@@ -21,12 +21,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp config set WP_REDIS_PORT 6379 --allow-root
     wp config set WP_REDIS_DATABASE 0 --allow-root
     wp config set WP_CACHE true --allow-root
-    wp plugin install redis-cache --activate --allow-root
     wp plugin update --all --allow-root
+    wp plugin install redis-cache --activate --allow-root
+    wp redis enable --allow-root
+
+    chown -R www-data:www-data /var/www/html/
+    chmod -R 755 /var/www/html/
 else
     echo "Wordpress is already installed"
 fi
 
-wp redis enable --allow-root
-
-php-fpm81 -F
+php-fpm8.2 -F

@@ -1,8 +1,8 @@
 FROM	alpine:3.18.4 AS gen_cert
 
 LABEL author="abouabra <abouabra@student.1337.ma>"
-LABEL description="A web server that will serve the WordPress website."
-LABEL version="0.1.0"
+LABEL description="A lightweight web server and reverse proxy."
+LABEL version="1.0.0"
 LABEL url="https://github.com/abouabra/inception"
 
 RUN		apk update; apk add openssl; rm -rf /var/cache/apk/*
