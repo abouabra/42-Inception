@@ -6,4 +6,5 @@ if [ ! -f /var/www/html/adminer/index.php ]; then
 else
     echo "adminer is already installed"
 fi
-php-fpm81 -F
+
+exec php-fpm81 -F

@@ -17,4 +17,4 @@ else
     echo "MariaDB is already installed"
 fi
 
-mariadbd --user=mysql --console
+exec mariadbd --user=mysql --console

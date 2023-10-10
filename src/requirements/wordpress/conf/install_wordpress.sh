@@ -31,4 +31,4 @@ else
     echo "Wordpress is already installed"
 fi
 
-php-fpm8.2 -F
+exec php-fpm8.2 -F
