@@ -93,7 +93,7 @@ You can access the various components as follows:
 
 
 ## Infrastructure
-![Inception Infrastructure](Screenshots/Inception.png)
+![Inception Infrastructure](ScreenShots/inception.png)
 ## Final Note
 
 If you have any suggestions or feedback, please feel free to open an issue or submit a pull request.
